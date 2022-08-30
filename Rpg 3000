@@ -1,0 +1,603 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static public int lvlstrong =10;
+        static public int prokstong = 0; 
+        static public float charisma = 0;
+        static public int HP;
+        static public string name;
+        static public int money = 0;
+        static public string Type = "";
+        static public int Ypon = 1;
+        static void Main(string[] args)
+        {
+            
+            string nameP = "";
+            int choice;
+            
+            string[] weapon = new string[3];
+
+
+            Random V = new Random();
+            Random R = new Random();
+            Console.WriteLine("введите имя персонажа");
+            name = Console.ReadLine();
+
+
+
+
+            Console.WriteLine($"{name} жил ");
+            while (Type == "")
+            {
+                Console.WriteLine("выберити тип персонажа 1-гоблин   2-скелет  3-крестьянин 4-преспешник ");
+                choice = int.Parse(Console.ReadLine());
+                //if (choice == 1)
+                //{
+                //    Type = "гоблин";
+                //}
+                //else
+                //      if (choice == 2)
+                //{
+                //    Type = "скелет";
+                //}
+                //else                                                                                                  
+                //      if (choice == 3)
+                //{
+                //    Type = "крестьянин";
+                //}
+                //else
+                //{
+                //    Console.WriteLine("нет такого персонажа");
+                //}
+                //
+                switch (choice)
+                {
+                    case 1:
+                        Type = "гоблин";
+                        charisma = 5;
+                        break;
+                    case 3:
+                        Type = "крестьянин";
+                        charisma = 10;
+                        Ypon = 2;
+
+                        break;
+                    case 2:
+                        Type = "скелет";
+                        charisma = 2;
+                        break;
+                    case 4:
+                        Type = "преспешник";
+                        charisma = 0;
+                        break;
+                    default:
+                        Console.WriteLine("нет такого персонажа");
+                        break;
+                }
+            }
+            HP = R.Next(1, 21);
+            Console.WriteLine($"Поздравляю вы {Type} у вас {HP} жизней ");
+            string[] sumka = new string[10];
+
+           
+            for (int Dey = 1; Dey < 20; Dey++)
+            {
+
+
+
+
+                // if action = Console.WriteLine($"{name}читал книгу интелект повышен");
+
+                for (int i = 0; i < 10; i = i + 1)//i=счётчик  = i=cколько выполняем Ж на сколько увеличим 
+                {
+                    if(lvlstrong == prokstong)
+                    {
+                        Ypon = Ypon + 1;
+                        lvlstrong = lvlstrong + 10;
+                        prokstong = prokstong - prokstong;
+                        Console.WriteLine("Урон повышен");
+                    }
+                    Console.WriteLine("1-итди 2 говорить 3-отдыхать 4-завершить день 5-открыть сумку");
+                    Console.WriteLine("введите действие");
+                    int action = int.Parse(Console.ReadLine());
+                    if (action == 1)
+                    {
+                        if (Type == "скелет")
+                        {
+
+                            Console.WriteLine("вы скелет и вы горите");
+                            HP = HP - 5;
+                            if (HP <= 0)
+                            {
+                                break;
+
+                            }
+
+
+
+                        }
+                        int s = R.Next(1, 11);
+                        Console.WriteLine($"{name} пошёл {s} километров");
+                        if (s >= 9)
+                        {
+                            Console.WriteLine("Вы увидели кого-то 1-сражаться 2-убегать");
+                            action = int.Parse(Console.ReadLine());
+                            if (action == 1)
+                            {
+                                Fight(Ypon, nameP = "Тень", name, money, prokstong);
+                                if (HP <= 0)
+                                {
+                                    break;
+
+                                }
+
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                        if (s == 4)
+                        {
+                            Console.WriteLine("Вы попали в большую шахту изучить 1-да 2-нет ");
+                            action = int.Parse(Console.ReadLine());
+                            if (action == 1)
+                            {
+                                int Sha = R.Next(1, 5);
+                                Console.WriteLine("Вы пошли в шахту Куда вы пойдёте выберети цифру от 1 до 5 или 0 чтобы уйти");
+                                int P = int.Parse(Console.ReadLine());
+                                if (P == 0)
+                                {
+                                }
+                                else if (Sha == 1)
+                                {
+                                    Console.WriteLine("Вы нашли 10 монет");
+                                    money = money + 10;
+                                }
+                                else if (Sha == 2)
+                                {
+                                    Console.WriteLine("Вы нашли выход из пещеры и попали в другую локацию");
+                                    Loc_2();
+                                }
+                                else if (Sha == 3)
+                                {
+                                    Console.WriteLine("Вы нашли какой то странный меч. Взять его? 1-Да 2-Нет ");
+                                    action = int.Parse(Console.ReadLine());
+                                    if (action == 1)
+                                    {
+                                        weapon[0] = "Странный меч";   //Название
+                                        weapon[1] = "20";    //Урон
+                                        weapon[2] = "100";        //Цена
+                                    }
+
+
+
+                                }
+                                else if (Sha == 4)
+                                {
+                                    Console.WriteLine("тупик ");
+                                }
+                                else if (Sha == 5)
+                                {
+                                    Console.WriteLine("Вы нашли ящик с хламом");
+                                    money = money + 10;
+                                }
+                            }
+                        }
+                        if (s == 5)
+                        {
+                            Console.WriteLine($"{name} нашёл магазин пойти? 1-да 2-нет");
+                            action = int.Parse(Console.ReadLine());
+                            if (action == 1)
+                            {
+                                if (Type == "преспешник")
+                                {
+                                    HP = HP - HP;
+                                    Console.WriteLine($" преспешник не может говорить с кем либо по правилам у вас осталось {HP} жизней  ");
+                                    break;
+                                }
+                                Console.WriteLine($"Покупай моё оружее ! Деревянный меч-1 (бесплатно) Бронзовый меч-2 (10 монет) Железный меч-3 (20 монет) У вас {money} монет ");
+
+
+                                int b = int.Parse(Console.ReadLine());
+                                if (b == 1)
+                                {
+
+                                    Console.WriteLine("В сумку положилили Деревянный меч");
+                                    weapon[0] = "Деревянный меч";   //Название
+                                    weapon[1] = "5";    //Урон
+                                    weapon[2] = "1";        //Цена
+
+                                }
+                                else if (b == 2)
+                                {
+                                  if (money >= 10)
+                                  {
+                                       
+                                    if (charisma >= 2f)
+                                    {
+                                        money = money - 5;
+                                        Console.WriteLine("В сумку положилили Бронзовый меч. Вам сделали скидку ");
+
+
+                                        
+                                    }
+                                    else
+                                    {
+                                        money = money - 10;
+                                        Console.WriteLine("В сумку положилили Бронзовый меч");
+                                        weapon[0] = "Бронзовый меч";  //Название
+                                        weapon[1] = "10";    //Урон
+                                        weapon[2] = "5";        //Цена ;
+                                    }
+                                   
+                                  }
+                                  else
+                                  {
+                                        Console.WriteLine("У вас нет денег (");
+                                  }
+                                }
+                                else if (b == 3)
+                                {
+                                    if (money >= 20)
+                                    {
+                                        if (charisma >= 2.9f)
+                                        {
+                                            money = money - 15;
+                                            Console.WriteLine("В сумку положилили Железный меч. Вам сделали скидку ");
+
+                                            weapon[0] = "Железный меч";  //Название
+                                            weapon[1] = "15";    //Урон
+                                            weapon[2] = "10";        //Цена  
+                                        }
+                                        else
+                                        {
+                                            money = money - 20;
+                                        Console.WriteLine("В сумку положилили Железный меч");
+                                        weapon[0] = "Железный меч";  //Название
+                                        weapon[1] = "15";    //Урон
+                                        weapon[2] = "10";        //Цена 
+                                        }
+                                         
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("У вас нет денег (");
+                                    }
+
+                                }
+
+
+
+
+
+                            }
+                        }
+                        if (s == 1)
+                        {
+                            Console.WriteLine("Вы попали в маленькую шахту и нашли 5 монет ");
+                            money = money + 5;
+                        }
+
+
+
+
+
+
+
+                    }
+                    else if (action == 2)
+                    {
+                        if (Type == "преспешник")
+                        {
+                            HP = HP - HP;
+                            Console.WriteLine($" преспешник не может говорить с кем либо по правилам у вас осталось {HP} жизней  ");
+                            break;
+
+                        }
+                        Console.WriteLine($"{name} начел репитировать разговор его харизма повышина");
+                        charisma = charisma + 0.1f; 
+                    }
+                    else if (action == 3)
+                    {
+                        if (Type == "гоблин")
+                        {
+                            HP = HP - 10;
+                            Console.WriteLine($"пока {name} отдыхал на него напали гоблены и отобрали все деньги и вырубили на день у тебя осталось {HP} жизней  ");
+
+                            Dey = Dey + 1;
+                            break;
+                        }
+                        int Sha = R.Next(-1, 2);
+                        if(Sha == -1)
+                        {
+                            HP = HP - 1;
+                            Console.WriteLine($"{name} начел отдыхать))) Но его побили бандиты. отнялось 1 жизнь");
+                        }
+                         if (Sha ==1)
+                        {
+                            HP = HP + 1;
+                            Console.WriteLine($"{name} начел отдыхать))) У него добавили 1 жизнь");
+                        }
+
+                        
+                       
+                    }
+                    else if (action == 4)
+                    {
+                        Console.WriteLine($"{name} устал и уснул)))");
+                        break;
+                        // i==10
+                    }
+                    else if (action == 5)
+                    {
+
+                        Console.WriteLine($"{HP} жизней");
+                        Console.WriteLine($"{Ypon} урон");
+                        Console.WriteLine($"{money} монет");
+                        Console.WriteLine(weapon[0]);
+                        Console.WriteLine($"Харизма {charisma}");
+                       
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("нет такого навыка");
+
+
+                    }
+
+                }
+                Console.WriteLine($"{name} прошёл день {Dey}");
+                Console.WriteLine(" нажмите 0 для выхода или ентер для продолжения  ");
+
+                if (HP <= 0)
+                {
+                    break;
+
+                }
+
+                if (Console.ReadLine() == "0")
+                {
+                    
+
+                }
+                if (Dey == 20)
+                {
+                    Console.WriteLine($"{name} проиграл");
+                    
+                }
+
+
+
+
+
+
+            }
+            Console.ReadKey();
+        }
+        static void Fight(int Ypon, string nameP, string name, int money, int prokstrong )
+        {
+            Random F = new Random();
+            int HPVraga = F.Next(1, 21);
+            int YponVraga = F.Next(1, 7);
+            int Dov = 0;
+            Console.WriteLine($"Вы обноружли {nameP} у него {HPVraga} жизней");
+            while (HP >= 0 && HPVraga >= 0)
+            {
+                Console.WriteLine($"Что будет делать герой  1-Проверить врага  2-Драться 3-Действие");
+
+                //Доделать действия
+                int xod = int.Parse(Console.ReadLine());
+                if (xod == 1)
+                {
+                    Console.WriteLine($"Это {nameP} у него {HPVraga} жизней и {YponVraga} урона. Он любит следовать за всеми ");
+                }
+                else if (xod == 2)
+                {
+                    HPVraga = HPVraga - Ypon;
+                    Console.WriteLine($"Вы нанесли урон врагу.");
+                }
+                else if (xod == 3)
+                {
+                    Console.WriteLine("Что вы хотите сделать 1-Предложить погулять 2-Рассказать историю 3-Пощадить ");
+                     xod = int.Parse(Console.ReadLine());
+                    if (xod ==1)
+                    {
+                        Console.WriteLine($"Вы предложили погулять ему {HPVraga} согласился. Вы погуляли.");
+                        Dov = Dov + 1;
+                    }
+                    if (xod == 2)
+                    {
+                        Console.WriteLine($"Вы предложили погулять ему {HPVraga} согласился. Вы погуляли.");
+                        Dov = Dov + 1;
+                    }
+                    if (xod == 3)
+                    {
+                        if (Dov == 1)
+                        {
+                            Console.WriteLine("Бой закончен вам доверились и вы победили. Враг вам дал 5 монет ");
+                            money = money + 5;
+                            break;
+                        }
+                    }
+                    else if (Dov >= 0)
+                    {
+                        Console.WriteLine("Враг вам не доверяет");
+                    }
+
+                    
+                }
+                HP = HP - YponVraga;
+                Console.WriteLine($"Враг нанёс вам {YponVraga} урона. У вас осталось {HP}");
+
+
+            }
+            if (HP <= 0)
+            {
+                Console.WriteLine($"{name} проиграли");
+
+            }
+            if (HPVraga <= 0)
+            {
+                Console.WriteLine($"{nameP} проиграл. Вы получили 5 монет и 10 очков опыта силы");
+                money = money + 5;
+                prokstong = prokstong + 10;
+
+            }
+
+        }
+        static void Loc_2()
+        {
+            Random R = new Random();
+            Console.WriteLine("Поздравляю вас. Вы дошли до 2 локации");
+            for ( int Dey = 1; Dey < 20; Dey++)
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    Console.WriteLine("1-итди  2-завершить день 3-открыть сумку");
+                    Console.WriteLine("введите действие");
+                    int action = int.Parse(Console.ReadLine());
+                    if (action == 1)
+                    {
+                        int s = R.Next(1, 11);
+                        Console.WriteLine($"{name} пошёл {s} километров");
+                        if (s == 6) ;
+                        {
+                            Console.WriteLine("Вы попали в большую шахту изучить 1-да 2-нет ");
+                            action = int.Parse(Console.ReadLine());
+                            if (action == 1)
+                            {
+
+                                int Sha = R.Next(1, 5);
+                                Console.WriteLine("Вы пошли в шахту Куда вы пойдёте выберети цифру от 1 до 5 или 0 чтобы уйти");
+                                int P = int.Parse(Console.ReadLine());
+                                if (P == 0)
+                                {
+                                }
+                                else if (Sha == 1)
+                                {
+                                    Console.WriteLine("Вы нашли 10 монет");
+                                    money = money + 10;
+                                }
+                                else if (Sha == 2)
+                                {
+                                    Console.WriteLine("Вы нашли выход из пещеры и попали в первую локацию");
+                                    break;
+                                }
+                                else if (Sha == 3)
+                                {
+                                    Console.WriteLine($"{name} дошёл до города ");
+                                    Gorod();
+
+                                }
+
+                                 
+
+                                else if (s == 10)
+
+                                    Console.WriteLine($"{name} нашёл магазин пойти? 1-да 2-нет");
+                                action = int.Parse(Console.ReadLine());
+                                if (action == 1)
+                                {
+                                    if (Type == "преспешник")
+                                    {
+                                        HP = HP - HP;
+                                        Console.WriteLine($" преспешник не может говорить с кем либо по правилам у вас осталось {HP} жизней  ");
+                                        break;
+                                    }
+                                    Console.WriteLine($"Покупай мою еду ! Яблоко-1 (10 монет) Жареная курица-2 ( 25 монет) 2 килограмма желе-3 (100 монет) У вас {money} монет ");
+
+
+                                    int b = int.Parse(Console.ReadLine());
+                                    if (b == 1)
+                                    {
+                                        if (money >= 10)
+                                        {
+                                            HP = HP + 5;
+                                            Console.WriteLine($"Вы приобрели яблоко вы прибавили 5 жизней. У вас {HP} ");
+
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("У вас нет денег (");
+                                        }
+
+
+                                    }
+                                    else if (b == 2)
+                                    {
+                                        if (money >= 25)
+                                        {
+                                            HP = HP + 15;
+                                            Console.WriteLine($"Вы приобрели жареную курицу вы прибавили 15 жизней. У вас {HP} ");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("У вас нет денег (");
+                                        }
+                                    }
+                                    else if (b == 3)
+                                    {
+                                        if (money >= 50)
+                                        {
+                                            HP = HP + 50;
+                                            Console.WriteLine($"Вы приобрели желе вы прибавили 50 жизней. У вас {HP} ");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("У вас нет денег (");
+                                        }
+
+                                    }
+
+
+
+                                }
+                                if (action == 2)
+                                {
+                                    if (HP <= 1)
+                                    {
+                                        break;
+
+                                    }
+
+                                    if (Console.ReadLine() == "0")
+                                    {
+                                        break;
+
+                                    }
+                                    if (Dey == 20)
+                                    {
+                                        Console.WriteLine($"{name} проиграл");
+                                        break;
+                                    }
+
+                                }
+
+
+                            }
+                        }
+
+
+                    }
+
+                }
+            }
+        }
+        static void Gorod()
+        {
+            Console.WriteLine($"{name} пришёл в город тут есть много вещей");
+            Console.WriteLine($"Что вы будете делать 1-Гулять по городу 2-уйти ");
+            int action = int.Parse(Console.ReadLine());
+
+        }
+    }
+}
